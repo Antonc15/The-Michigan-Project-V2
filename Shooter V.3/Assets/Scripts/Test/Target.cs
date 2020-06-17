@@ -5,14 +5,15 @@ using UnityEngine;
 public class Target : MonoBehaviour
 {
 
-    public float health;
+    public int health;
     public bool isHead;
 
-    public void TakeDamage(float amount)
+    public void TakeDamage(int amount)
     {
         if (!isHead)
         {
             health -= amount;
+
             if (health <= 0f)
             {
                 Die();
@@ -22,7 +23,6 @@ public class Target : MonoBehaviour
         {
             Target target = transform.parent.GetComponent<Target>();
             target.TakeDamage(amount * 2);
-            Debug.Log("Headshot " + amount * 2);
         }
     }
 

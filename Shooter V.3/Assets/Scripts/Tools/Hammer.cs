@@ -183,7 +183,6 @@ public class Hammer : MonoBehaviour
 
             for (int i = 0; i < buildingAmount; i++)
             {
-                Debug.Log("s");
                 if (i == (currentType - 1))
                 {
                     icons[i].color = new Color32(122, 255, 127, 160);

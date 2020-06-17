@@ -11,6 +11,7 @@ public class RaycastGun : MonoBehaviour
     public int maxDamage = 5;
     [Range(0f, 100f)]
     public int criticalStrikeChance = 10;
+    public GameObject explosion;
 
     [Header("Draw Ray")]
     public bool drawBulletRay = false;
@@ -346,23 +347,28 @@ public class RaycastGun : MonoBehaviour
             if (Physics.Raycast(fpsCam.GetComponent<Camera>().transform.position, t_bloom, out hit, range, ~cannotBeShot))
             {
                 Target target = hit.transform.GetComponent<Target>();
-                if (target != null)
+
+                //***************************************************************************\\
+                //                                                                           \\
+                //                      Handles Damage for Non-Explosions                    \\
+                //                                   \/                                      \\
+                //***************************************************************************\\
+
+                if (target != null && explosion == null)
                 {
                     float damage;
-                    //yet another example of random.range not selecting the max number / 101 will never be a selection
+                    //yet another example of random.range not selecting the max number, 101 will never be a selection
                     if (Random.Range(0, 101) <= criticalStrikeChance)
                     {
                         damage = maxDamage * 2;
-                        Debug.Log("critical hit! " + damage);
                     }
                     else
                     {
                         //I'm doing + 1 after maxDamage because Random.Range's never grab the max value.
                         damage = Random.Range(minDamage, maxDamage + 1);
-                        Debug.Log(damage);
                     }
 
-                    target.TakeDamage(damage);
+                        target.TakeDamage(Mathf.RoundToInt(damage));
                 }
                 else
                 {
@@ -370,8 +376,39 @@ public class RaycastGun : MonoBehaviour
                          if(hit.transform.GetComponent<Rigidbody>() != null)
                             hit.rigidbody.AddForce(-hit.normal * knockbackForce);
 
+                    //***************************************************************************\\
+                    //                                                                           \\
+                    //                      Handles Damage for Explosions                        \\
+                    //                                   \/                                      \\
+                    //***************************************************************************\\
 
-                    if (doBulletHoles)
+                    if (explosion != null)
+                    {
+                        float damage;
+                        //yet another example of random.range not selecting the max number, 101 will never be a selection
+                        if (Random.Range(0, 101) <= criticalStrikeChance)
+                        {
+                            damage = maxDamage * 2;
+                        }
+                        else
+                        {
+                            //I'm doing + 1 after maxDamage because Random.Range's never grab the max value.
+                            damage = Random.Range(minDamage, maxDamage + 1);
+                        }
+
+                        var explosionDamage = Instantiate(explosion, hit.point, Quaternion.identity);
+                        explosionDamage.GetComponent<Explosion>().damage = Mathf.RoundToInt(damage);
+                    }
+
+
+
+                    //***************************************************************************\\
+                    //                                                                           \\
+                    //                      This handles making bullet holes                     \\
+                    //                                   \/                                      \\
+                    //***************************************************************************\\
+
+                    if (doBulletHoles & target == null)
                     {
                         //defining the bullet hole
                         GameObject t_bulletHole = bulletHole;
@@ -390,6 +427,11 @@ public class RaycastGun : MonoBehaviour
                     }
                 }
 
+                //***************************************************************************\\
+                //                                                                           \\
+                //                      This handles drawing bullet rays                     \\
+                //                                   \/                                      \\
+                //***************************************************************************\\
                 if (drawBulletRay)
                 {
 
