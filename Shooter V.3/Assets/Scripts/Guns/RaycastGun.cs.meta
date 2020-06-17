@@ -1,0 +1,33 @@
+fileFormatVersion: 2
+guid: 3e7ff34f7db0fda419dcce1fff555e70
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - ammoUI: {instanceID: 0}
+  - gunIcon: {instanceID: 0}
+  - fpsCam: {instanceID: 0}
+  - shootSound: {instanceID: 0}
+  - reloadSound: {instanceID: 0}
+  - reloadFinishedSound: {instanceID: 0}
+  - shotDelaySound: {instanceID: 0}
+  - muzzleFlash: {instanceID: 0}
+  - bulletHoleConcretePrefab: {fileID: 908890603476726423, guid: 17b9f1900fc40b548a1e58e2a4fa203a,
+      type: 3}
+  - bulletHoleConcrete2Prefab: {fileID: 8831407724584321885, guid: 5366bc70f698d1c499ccd4821b115d5d,
+      type: 3}
+  - bulletHoleDirtPrefab: {fileID: 7236169370636869695, guid: 2733645ec77e58c458c5bd991f497888,
+      type: 3}
+  - bulletHoleMetalPrefab: {fileID: 3464058652254402308, guid: 97bec274666ea1841bf348226834708a,
+      type: 3}
+  - bulletHoleMetal2Prefab: {fileID: 8761873456005212921, guid: 1a1ade4fa905f9a42aec9145ccacc2fc,
+      type: 3}
+  - bulletHoleWoodPrefab: {fileID: 1987948458094656876, guid: d5b0f8d97c9527b4a8492adb70e3bccf,
+      type: 3}
+  - bulletHoleWood2Prefab: {fileID: 1124297747245457144, guid: 69b0fdfbba4e3ea47b6f01c5041f6ee4,
+      type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
