@@ -6,6 +6,8 @@ MonoImporter:
   defaultReferences:
   - explosion: {fileID: 580673131265075230, guid: d67072114ae8b31448247b182bffb326,
       type: 3}
+  - explosionDecal: {fileID: 9149121614223075289, guid: 7aece6fbfb720234f8ab16cbdf47fd39,
+      type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

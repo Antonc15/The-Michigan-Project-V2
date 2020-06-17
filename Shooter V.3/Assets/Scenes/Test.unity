@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 2035111234}
-  m_IndirectSpecularColor: {r: 419.528, g: 498.87292, b: 589.8178, a: 1}
+  m_IndirectSpecularColor: {r: 419.57086, g: 498.89392, b: 589.8056, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -877,7 +877,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Profile: {fileID: 11400000, guid: a123fc0ac58cb774e8592c925f167e7c, type: 2}
   m_StaticLightingSkyUniqueID: 1
-  m_SkySettings: {fileID: 998515718}
+  m_SkySettings: {fileID: 376347586}
   m_SkySettingsFromProfile: {fileID: -1658960478407648048, guid: a123fc0ac58cb774e8592c925f167e7c,
     type: 2}
 --- !u!4 &313761475
@@ -894,6 +894,107 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &376347586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59b6606ef2548734bb6d11b9d160bc7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  active: 1
+  m_AdvancedMode: 0
+  rotation:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
+    max: 360
+  skyIntensityMode:
+    m_OverrideState: 0
+    m_Value: 0
+  exposure:
+    m_OverrideState: 0
+    m_Value: 10
+  multiplier:
+    m_OverrideState: 0
+    m_Value: 1
+    min: 0
+  upperHemisphereLuxValue:
+    m_OverrideState: 0
+    m_Value: 1
+    min: 0
+  upperHemisphereLuxColor:
+    m_OverrideState: 0
+    m_Value: {x: 0, y: 0, z: 0}
+  desiredLuxValue:
+    m_OverrideState: 0
+    m_Value: 20000
+  updateMode:
+    m_OverrideState: 0
+    m_Value: 0
+  updatePeriod:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
+  includeSunInBaking:
+    m_OverrideState: 0
+    m_Value: 0
+  hdriSky:
+    m_OverrideState: 0
+    m_Value: {fileID: 8900000, guid: 1cde0e200e792cb4491204276a656490, type: 3}
+  enableBackplate:
+    m_OverrideState: 0
+    m_Value: 0
+  backplateType:
+    m_OverrideState: 0
+    m_Value: 0
+  groundLevel:
+    m_OverrideState: 0
+    m_Value: 0
+  scale:
+    m_OverrideState: 0
+    m_Value: {x: 32, y: 32}
+  projectionDistance:
+    m_OverrideState: 0
+    m_Value: 16
+    min: 0.0000001
+  plateRotation:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
+    max: 360
+  plateTexRotation:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
+    max: 360
+  plateTexOffset:
+    m_OverrideState: 0
+    m_Value: {x: 0, y: 0}
+  blendAmount:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
+    max: 100
+  shadowTint:
+    m_OverrideState: 0
+    m_Value: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    hdr: 0
+    showAlpha: 1
+    showEyeDropper: 1
+  pointLightShadow:
+    m_OverrideState: 0
+    m_Value: 0
+  dirLightShadow:
+    m_OverrideState: 0
+    m_Value: 0
+  rectLightShadow:
+    m_OverrideState: 0
+    m_Value: 0
 --- !u!1 &540222054
 GameObject:
   m_ObjectHideFlags: 0
@@ -1450,107 +1551,6 @@ Transform:
   m_Father: {fileID: 1570428672}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 4.577, y: -48.165, z: 0}
---- !u!114 &998515718
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59b6606ef2548734bb6d11b9d160bc7e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  active: 1
-  m_AdvancedMode: 0
-  rotation:
-    m_OverrideState: 0
-    m_Value: 0
-    min: 0
-    max: 360
-  skyIntensityMode:
-    m_OverrideState: 0
-    m_Value: 0
-  exposure:
-    m_OverrideState: 0
-    m_Value: 10
-  multiplier:
-    m_OverrideState: 0
-    m_Value: 1
-    min: 0
-  upperHemisphereLuxValue:
-    m_OverrideState: 0
-    m_Value: 1
-    min: 0
-  upperHemisphereLuxColor:
-    m_OverrideState: 0
-    m_Value: {x: 0, y: 0, z: 0}
-  desiredLuxValue:
-    m_OverrideState: 0
-    m_Value: 20000
-  updateMode:
-    m_OverrideState: 0
-    m_Value: 0
-  updatePeriod:
-    m_OverrideState: 0
-    m_Value: 0
-    min: 0
-  includeSunInBaking:
-    m_OverrideState: 0
-    m_Value: 0
-  hdriSky:
-    m_OverrideState: 0
-    m_Value: {fileID: 8900000, guid: 1cde0e200e792cb4491204276a656490, type: 3}
-  enableBackplate:
-    m_OverrideState: 0
-    m_Value: 0
-  backplateType:
-    m_OverrideState: 0
-    m_Value: 0
-  groundLevel:
-    m_OverrideState: 0
-    m_Value: 0
-  scale:
-    m_OverrideState: 0
-    m_Value: {x: 32, y: 32}
-  projectionDistance:
-    m_OverrideState: 0
-    m_Value: 16
-    min: 0.0000001
-  plateRotation:
-    m_OverrideState: 0
-    m_Value: 0
-    min: 0
-    max: 360
-  plateTexRotation:
-    m_OverrideState: 0
-    m_Value: 0
-    min: 0
-    max: 360
-  plateTexOffset:
-    m_OverrideState: 0
-    m_Value: {x: 0, y: 0}
-  blendAmount:
-    m_OverrideState: 0
-    m_Value: 0
-    min: 0
-    max: 100
-  shadowTint:
-    m_OverrideState: 0
-    m_Value: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-    hdr: 0
-    showAlpha: 1
-    showEyeDropper: 1
-  pointLightShadow:
-    m_OverrideState: 0
-    m_Value: 0
-  dirLightShadow:
-    m_OverrideState: 0
-    m_Value: 0
-  rectLightShadow:
-    m_OverrideState: 0
-    m_Value: 0
 --- !u!1 &1003126581
 GameObject:
   m_ObjectHideFlags: 0
@@ -4779,15 +4779,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2520713946134443390}
   - component: {fileID: 2520713946134183926}
-  - component: {fileID: 2520713946134183935}
-  - component: {fileID: 2520713946134183934}
-  - component: {fileID: 2520713946134183933}
-  - component: {fileID: 2520713946134183932}
-  - component: {fileID: 2520713946134183931}
-  - component: {fileID: 2520713946134183930}
-  - component: {fileID: 2520713946134183929}
-  - component: {fileID: 2520713946134183928}
-  - component: {fileID: 2520713946134183927}
   - component: {fileID: 2520713946134183925}
   m_Layer: 0
   m_Name: Pistol
@@ -4805,9 +4796,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2520713946134183924}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed8e8096340999747979eda38b56c1e6, type: 3}
+  m_Script: {fileID: 11500000, guid: 971e7eccbd2578e4683e3be8fe5b9e6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosion: {fileID: 580673131265075230, guid: d67072114ae8b31448247b182bffb326,
+    type: 3}
+  explosionDecal: {fileID: 9149121614223075289, guid: 7aece6fbfb720234f8ab16cbdf47fd39,
+    type: 3}
 --- !u!114 &2520713946134183926
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4823,8 +4818,7 @@ MonoBehaviour:
   minDamage: 7
   maxDamage: 9
   criticalStrikeChance: 10
-  explosion: {fileID: 580673131265075230, guid: d67072114ae8b31448247b182bffb326,
-    type: 3}
+  explosion: {fileID: 0}
   drawBulletRay: 0
   bulletRayLiveTime: 0.1
   lineRenderStartLocation: {fileID: 1592750221}
@@ -4871,117 +4865,10 @@ MonoBehaviour:
   bulletHoleLiveTime: 15
   bulletHole: {fileID: 597614187855161921, guid: f5813f32e7f861041941daae50518f50,
     type: 3}
+  incendiaryBulletHole: {fileID: 0}
   rotationSpeed: 6
   returnSpeed: 15
   recoilRotation: {x: 30, y: 2, z: 2}
---- !u!114 &2520713946134183927
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2520713946134183924}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9491264feb1dfee489b7dcdd946697d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2520713946134183928
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2520713946134183924}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0a09496643c47b4e896bc2efedb48f7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2520713946134183929
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2520713946134183924}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6f69951d1aeba6468a7bc7a585c45e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2520713946134183930
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2520713946134183924}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5381eec6701e1b468a35287096981d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2520713946134183931
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2520713946134183924}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d1913a0538fec5409694bde6aa4805f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2520713946134183932
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2520713946134183924}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 518f798f031e6dd47ab2951837553adb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2520713946134183933
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2520713946134183924}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a928b9bb2e7470947a7f6d4a8b6fedbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2520713946134183934
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2520713946134183924}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6cf2c66a1ff709441a412b56989ed6ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2520713946134183935
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2520713946134183924}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4116414f7951d504799f76517bad5ad5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2520713946134209266
 GameObject:
   m_ObjectHideFlags: 0
@@ -6081,6 +5968,7 @@ GameObject:
   - component: {fileID: 5006512736364213473}
   - component: {fileID: 8296172668175238899}
   - component: {fileID: 8296172668175238900}
+  - component: {fileID: 8296172668175238901}
   m_Layer: 0
   m_Name: Arms
   m_TagString: Untagged
@@ -6151,8 +6039,9 @@ MonoBehaviour:
   bulletHoleLiveTime: 15
   bulletHole: {fileID: 597614187855161921, guid: f5813f32e7f861041941daae50518f50,
     type: 3}
-  rotationSpeed: 12
-  returnSpeed: 25
+  incendiaryBulletHole: {fileID: 0}
+  rotationSpeed: 6
+  returnSpeed: 15
   recoilRotation: {x: 45, y: 2, z: 2}
 --- !u!95 &8296172668175238900
 Animator:
@@ -6173,6 +6062,21 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &8296172668175238901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8296172668175238898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 971e7eccbd2578e4683e3be8fe5b9e6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosion: {fileID: 580673131265075230, guid: d67072114ae8b31448247b182bffb326,
+    type: 3}
+  explosionDecal: {fileID: 0}
 --- !u!4 &8335808435761001190
 Transform:
   m_ObjectHideFlags: 0

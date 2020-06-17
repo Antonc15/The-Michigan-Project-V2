@@ -79,6 +79,7 @@ public class RaycastGun : MonoBehaviour
     public bool doBulletHoles = true;
     public float bulletHoleLiveTime = 30f;
     public GameObject bulletHole;
+    public GameObject incendiaryBulletHole;
 
     [Header("Recoil")]
     public float rotationSpeed = 6;
@@ -410,20 +411,40 @@ public class RaycastGun : MonoBehaviour
 
                     if (doBulletHoles & target == null)
                     {
-                        //defining the bullet hole
                         GameObject t_bulletHole = bulletHole;
+                        GameObject t_IncendiaryBulletHole = incendiaryBulletHole;
 
-                        //creating the bullet things
-                        t_bulletHole = Instantiate(bulletHole, hit.point + hit.normal * -0.5f, Quaternion.identity) as GameObject;
 
-                        //makes bullet hole look in right direction
-                        t_bulletHole.transform.LookAt(hit.point + hit.normal);
+                        //------------------------ Creates normal bullet hole if thewir is no decal in the incendiary slot. ----------------------\\
+                        if (incendiaryBulletHole != null & explosion != null)
+                        {
+                            //creating the bullet things
+                            t_IncendiaryBulletHole = Instantiate(incendiaryBulletHole, hit.point + hit.normal * -0.5f, Quaternion.identity) as GameObject;
 
-                        //attaches bullethole as parent to object for movement
-                        t_bulletHole.transform.parent = hit.transform;
+                            //makes bullet hole look in right direction
+                            t_IncendiaryBulletHole.transform.LookAt(hit.point + hit.normal);
 
-                        //destorys bullet after certain length
-                        Destroy(t_bulletHole, bulletHoleLiveTime);
+                            //attaches bullethole as parent to object for movement
+                            t_IncendiaryBulletHole.transform.parent = hit.transform;
+
+                            //destorys bullet after certain length
+                            Destroy(t_IncendiaryBulletHole, bulletHoleLiveTime);
+                        }
+                        //------------------------ Creates incediary bullet hole if their is a gameobject in the slot. ----------------------\\
+                        else
+                        {
+                            //creating the bullet things
+                            t_bulletHole = Instantiate(bulletHole, hit.point + hit.normal * -0.5f, Quaternion.identity) as GameObject;
+
+                            //makes bullet hole look in right direction
+                            t_bulletHole.transform.LookAt(hit.point + hit.normal);
+
+                            //attaches bullethole as parent to object for movement
+                            t_bulletHole.transform.parent = hit.transform;
+
+                            //destorys bullet after certain length
+                            Destroy(t_bulletHole, bulletHoleLiveTime);
+                        }
                     }
                 }
 

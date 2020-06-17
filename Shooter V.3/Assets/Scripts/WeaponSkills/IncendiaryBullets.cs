@@ -6,6 +6,8 @@ public class IncendiaryBullets : MonoBehaviour
 {
     RaycastGun gun;
     public GameObject explosion;
+    public GameObject explosionDecal;
+
     void Awake()
     {
         gun = GetComponent<RaycastGun>();
@@ -14,6 +16,11 @@ public class IncendiaryBullets : MonoBehaviour
         if (gun.explosion == null)
         {
             gun.explosion = explosion;
+        }
+
+        if (gun.incendiaryBulletHole == null)
+        {
+            gun.incendiaryBulletHole = explosionDecal;
         }
     }
 }
