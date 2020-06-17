@@ -10,7 +10,6 @@ public class PlayerMovement : MonoBehaviour
     public CharacterController controller;
     public Transform groundCheck;
     public LayerMask groundMask;
-    public Animator anim;
 
     [Header("Settings")]
     public float groundCheckerDistance = 0.5f;
@@ -22,8 +21,6 @@ public class PlayerMovement : MonoBehaviour
     public float jumpHeight = 3f;
 
     [Header("Settings - Modes")]
-    public float crouchHeight = 1.5f;
-    public float crouchSpeed = 1f;
     public float walkSpeed = 3f;
     public float sprintSpeed = 5f;
     [HideInInspector]
@@ -34,6 +31,7 @@ public class PlayerMovement : MonoBehaviour
     float normalHeight = 2f;
     [HideInInspector]
     public bool isGrounded;
+
     CharacterController charController;
 
     void Start()
@@ -46,14 +44,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isGrounded)
         {
-            if (Input.GetButton("Crouch"))
-            {
-                groundCheck.position = new Vector3(controller.transform.position.x, controller.transform.position.y - 0.25f, controller.transform.position.z);
-                currentSpeed = crouchSpeed;
-                charController.height = crouchHeight;
-                isSprinting = false;
-            }
-            else if (Input.GetButton("Sprint") && Input.GetButton("Horizontal") || Input.GetButton("Sprint") && Input.GetButton("Vertical"))
+            if (Input.GetButton("Sprint") && Input.GetButton("Horizontal") || Input.GetButton("Sprint") && Input.GetButton("Vertical"))
             {
                 currentSpeed = sprintSpeed;
 
@@ -95,19 +86,8 @@ public class PlayerMovement : MonoBehaviour
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
 
-        if (anim != null)
-        {
-            if (Mathf.Abs(z) > 0)
-            {
-                anim.SetBool("isWalking", true);
-            }
-            else
-            {
-                anim.SetBool("isWalking", false);
-            }
-        }
 
-            if (velocity.y > -terminalVelocity)
+        if (velocity.y > -terminalVelocity)
         {
             velocity.y += gravity * Time.deltaTime;
         }

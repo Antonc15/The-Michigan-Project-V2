@@ -77,7 +77,7 @@ public class Hammer : MonoBehaviour
 
     void OnDisable()
     {
-            if (iconHolder.activeSelf)
+            if (iconHolder != null && iconHolder.activeSelf)
                 iconHolder.SetActive(false);
 
         if (inBuildMode)
@@ -302,8 +302,6 @@ public class Hammer : MonoBehaviour
         if (Input.GetButtonDown("Interact") & currentType == 1)
         {
 
-            Debug.Log("flor");
-
             if (freeBuildMode)
             {
                 //spawning the building
@@ -345,8 +343,6 @@ public class Hammer : MonoBehaviour
         if (Input.GetButtonDown("Interact") & currentType == 2)
         {
 
-            Debug.Log("wall");
-
             if (freeBuildMode)
             {
                 //spawning the building
@@ -387,8 +383,6 @@ public class Hammer : MonoBehaviour
         //this handles the placing of objects
         if (Input.GetButtonDown("Interact") & currentType == 3)
         {
-
-            Debug.Log("roof");
 
             if (freeBuildMode)
             {

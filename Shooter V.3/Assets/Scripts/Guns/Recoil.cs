@@ -16,11 +16,14 @@ public class Recoil : MonoBehaviour
     Vector3 currentRotation;
     Vector3 Rot;
 
+    [HideInInspector]
     public bool fire;
     void FixedUpdate()
     {
         currentRotation = Vector3.Lerp(currentRotation, Vector3.zero, returnSpeed * Time.deltaTime);
+
         Rot = Vector3.Slerp(Rot, currentRotation, rotationSpeed * Time.deltaTime);
+
         recoilObject.localRotation = Quaternion.Euler(Rot);
     }
 
@@ -33,7 +36,10 @@ public class Recoil : MonoBehaviour
     {
         if (fire)
         {
+            //applies recoil
             currentRotation += new Vector3(-recoilRotation.x, Random.Range(-recoilRotation.y, recoilRotation.y), Random.Range(-recoilRotation.z, recoilRotation.z));
+
+            //sets recoil to false allowing it to be called again
             fire = false;
         }
     }

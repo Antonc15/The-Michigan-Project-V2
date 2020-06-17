@@ -10,6 +10,7 @@ public class Interact : MonoBehaviour
     public LayerMask ignoreMe;
 
     [Header("Settings - Interact")]
+    public bool toggleHold;
     public float reach = 5f;
     [Range(0f, 100f)]
     public int localStrength = 100;
@@ -34,7 +35,7 @@ public class Interact : MonoBehaviour
     {
         Interaction();
 
-        if (!Input.GetButton("Interact"))
+        if (!Input.GetButton("Interact") & !toggleHold)
         {
             currentHoldTime = Time.time + buttonHoldTime;
         }
@@ -64,6 +65,7 @@ public class Interact : MonoBehaviour
     void Interaction()
     {
         RaycastHit hit;
+
         if (Physics.Raycast(cam.GetComponent<Camera>().transform.position, cam.GetComponent<Camera>().transform.forward, out hit, reach, ~ignoreMe))
         {
             Item item = hit.transform.GetComponent<Item>();

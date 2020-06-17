@@ -50,6 +50,7 @@ public class RaycastGun : MonoBehaviour
     public float maxSwayAmount = 0.12f;
 
     [Header("Weapon Aim")]
+    public GameObject crosshair;
     public bool isAimable = true;
     public float aimFovChange = 10.0f;
     public float aimFovSpeed = 0.1f;
@@ -103,7 +104,6 @@ public class RaycastGun : MonoBehaviour
     {
         initialPosition = transform.localPosition;
         initialBloom = bloom;
-
         playerInteract = GameObject.Find("Player").GetComponent<Interact>();
         playerMove = GameObject.Find("Player").GetComponent<PlayerMovement>();
         aimingFov = fpsCam.GetComponent<aimingFov>();
@@ -545,6 +545,9 @@ public class RaycastGun : MonoBehaviour
                 bloom = initialBloom / 2;
 
             transform.localPosition = Vector3.Lerp(transform.localPosition,new Vector3(0,initialPosition.y,initialPosition.z), Time.deltaTime * smoothAmount);
+
+            if(crosshair != null)
+            crosshair.GetComponent<Reticle>().lookingAtItem = true;
         }
         else
         {
@@ -556,6 +559,9 @@ public class RaycastGun : MonoBehaviour
 
             if(bloom != initialBloom)
                 bloom = initialBloom;
+
+            if (crosshair != null)
+                crosshair.GetComponent<Reticle>().lookingAtItem = false;
         }
     }
 
