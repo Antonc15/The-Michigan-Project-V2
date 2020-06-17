@@ -7,6 +7,7 @@ public class invisDeleter : MonoBehaviour
 
     void OnTriggerStay(Collider col)
     {
+        //deletes selcted gameobject.
         if (col.gameObject.layer == LayerMask.NameToLayer("FloorPlacement") || col.gameObject.layer == LayerMask.NameToLayer("WallPlacement") || col.gameObject.layer == LayerMask.NameToLayer("RoofPlacement"))
         {
             Destroy(col.gameObject);
