@@ -86,14 +86,16 @@ public class RaycastGun : MonoBehaviour
     public float returnSpeed = 25;
     public Vector3 recoilRotation = new Vector3(2f, 2f, 2f);
 
+    [HideInInspector]
+    public bool isReloading = false;
+
     Vector3 initialPosition;
     float reloadDuration;
     float initialBloom;
     float currentShotDelay;
     float currentBurstDelay = 0;
-    bool isAiming;
     int ammo;
-    bool isReloading = false;
+    bool isAiming;
     bool isDelaying = false;
     bool isBursting = false;
     int currentBurstAmount;
@@ -491,7 +493,13 @@ public class RaycastGun : MonoBehaviour
 
         }
 
-        if(transform.parent.GetComponent<Recoil>() != null)
+        //***************************************************************************\\
+        //                                                                           \\
+        //                      This handles recoil - Calls the camera               \\
+        //                                   \/                                      \\
+        //***************************************************************************\\
+
+        if (transform.parent.GetComponent<Recoil>() != null)
         {
             //assigins gun variables
             transform.parent.GetComponent<Recoil>().recoilRotation = recoilRotation;
@@ -512,6 +520,12 @@ public class RaycastGun : MonoBehaviour
             StartCoroutine("PlaySoundDuringDelay");
             playedDelaySound = true;
         }
+
+        //***************************************************************************\\
+        //                                                                           \\
+        //                      This handles the shooting sound                      \\
+        //                                   \/                                      \\
+        //***************************************************************************\\
 
         var audio = Instantiate(shootSound, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
         audio.transform.parent = GameObject.Find("AudioHolder").transform;
@@ -610,7 +624,10 @@ public class RaycastGun : MonoBehaviour
             transform.localPosition = Vector3.Lerp(transform.localPosition,new Vector3(0,initialPosition.y,initialPosition.z), Time.deltaTime * smoothAmount);
 
             if(crosshair != null)
-            crosshair.GetComponent<Reticle>().lookingAtItem = true;
+            {
+                crosshair.GetComponent<Reticle>().aiming = true;
+                crosshair.GetComponent<Reticle>().waitTime = Time.time + 0.1f;
+            }
         }
         else
         {
@@ -624,7 +641,9 @@ public class RaycastGun : MonoBehaviour
                 bloom = initialBloom;
 
             if (crosshair != null)
-                crosshair.GetComponent<Reticle>().lookingAtItem = false;
+            {
+                crosshair.GetComponent<Reticle>().aiming = false;
+            }
         }
     }
 

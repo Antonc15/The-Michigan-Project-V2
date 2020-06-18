@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class WellMaintained : MonoBehaviour
 {
-
     RaycastGun gun;
 
     void Awake()

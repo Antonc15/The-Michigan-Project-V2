@@ -27,6 +27,7 @@ public class Interact : MonoBehaviour
     public bool carrying;
     float distance;
     float currentHoldTime;
+    bool justClicked;
 
     GameObject carriedObject;
     LayerMask defaultLayer;
@@ -35,7 +36,7 @@ public class Interact : MonoBehaviour
     {
         Interaction();
 
-        if (!Input.GetButton("Interact") & !toggleHold)
+        if (!toggleHold && !Input.GetButton("Interact"))
         {
             currentHoldTime = Time.time + buttonHoldTime;
         }
@@ -91,13 +92,28 @@ public class Interact : MonoBehaviour
                         item.isCollected = true;
                     }
 
-                    if (Input.GetButton("Interact") && item.canBePickedUp && !carrying && Time.time > currentHoldTime && localStrength >= item.weight)
+                    if (!toggleHold)
                     {
-                        carrying = true;
-                        carriedObject = item.gameObject;
-                        defaultLayer = carriedObject.layer;
-                        item.gameObject.transform.GetComponent<Rigidbody>().useGravity = false;
-                        item.gameObject.transform.GetComponent<Rigidbody>().freezeRotation = true;
+                        if (Input.GetButton("Interact") && item.canBePickedUp && !carrying && Time.time > currentHoldTime && localStrength >= item.weight)
+                        {
+                            carrying = true;
+                            carriedObject = item.gameObject;
+                            defaultLayer = carriedObject.layer;
+                            item.gameObject.transform.GetComponent<Rigidbody>().useGravity = false;
+                            item.gameObject.transform.GetComponent<Rigidbody>().freezeRotation = true;
+                        }
+                    }
+                    else
+                    {
+                        if (Input.GetButtonUp("Carry") && item.canBePickedUp && !carrying && localStrength >= item.weight)
+                        {
+                            justClicked = true;
+                            carrying = true;
+                            carriedObject = item.gameObject;
+                            defaultLayer = carriedObject.layer;
+                            item.gameObject.transform.GetComponent<Rigidbody>().useGravity = false;
+                            item.gameObject.transform.GetComponent<Rigidbody>().freezeRotation = true;
+                        }
                     }
                 }
             }
@@ -124,10 +140,16 @@ public class Interact : MonoBehaviour
 
     void CheckDrop()
     {
-        if (Input.GetButtonUp("Interact"))
+        if (!toggleHold && Input.GetButtonUp("Interact"))
         {
             DropObject();
         }
+
+        if(toggleHold && !justClicked && Input.GetButtonUp("Carry"))
+        {
+            DropObject();
+        }
+
         else if (Input.GetButtonDown("Throw"))
         {
             if(carriedObject.GetComponent<Item>().weight <= localStrength / 2)
@@ -138,6 +160,16 @@ public class Interact : MonoBehaviour
             {
                 DropObject();
             }
+        }
+
+        //**************************************************************************\\
+        //                                                                          \\
+        //     Using this to make sure object isnt dropped and picked up same frame \\
+        //                                                                          \\
+        //**************************************************************************\\
+        if (justClicked == true)
+        {
+            justClicked = false;
         }
     }
 

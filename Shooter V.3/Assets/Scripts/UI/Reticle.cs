@@ -10,9 +10,15 @@ public class Reticle : MonoBehaviour
 
     [Header("Settings")]
     public float restingSize;
-    public float maxSize;
+    public float aimSize;
+    public float interactSize;
     public float speed;
+
+    [HideInInspector]
+    public bool aiming;
+    [HideInInspector]
     public bool lookingAtItem;
+    [HideInInspector]
     public float waitTime;
 
     float currentSize;
@@ -33,7 +39,11 @@ public class Reticle : MonoBehaviour
 
         if(lookingAtItem)
         {
-            currentSize = Mathf.Lerp(currentSize, maxSize, Time.deltaTime * speed);
+            currentSize = Mathf.Lerp(currentSize, interactSize, Time.deltaTime * speed);
+        }
+        else if(aiming)
+        {
+            currentSize = Mathf.Lerp(currentSize, aimSize, Time.deltaTime * speed);
         }
         else
         {

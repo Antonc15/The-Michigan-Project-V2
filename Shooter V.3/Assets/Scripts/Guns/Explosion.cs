@@ -15,5 +15,10 @@ public class Explosion : MonoBehaviour
             Debug.Log(damage);
             otherCol.GetComponent<Target>().TakeDamage(Mathf.RoundToInt(damage * 0.5f));
         }
+
+        if (otherCol.GetComponent<PlayerVitals>())
+        {
+            otherCol.GetComponent<PlayerVitals>().TakeDamage(Mathf.RoundToInt((damage * 0.5f)));
+        }
     }
 }
