@@ -68,6 +68,10 @@ public class RaycastGun : MonoBehaviour
     public GameObject reloadFinishedSound;
     public GameObject shotDelaySound;
     public float timeUntilDelaySoundPlayed = 0.3f;
+    [HideInInspector]
+    public float shotVolume = 1f;
+    [HideInInspector]
+    public float shotPitch = 1f;
 
     [Header("Particles")]
     public ParticleSystem muzzleFlash;
@@ -451,6 +455,8 @@ public class RaycastGun : MonoBehaviour
         }
 
         var audio = Instantiate(shootSound, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
+        audio.GetComponent<AudioSource>().volume = shotVolume;
+        audio.GetComponent<AudioSource>().pitch = shotPitch;
         audio.transform.parent = GameObject.Find("AudioHolder").transform;
     }
 

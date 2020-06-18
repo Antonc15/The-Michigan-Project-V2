@@ -877,7 +877,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Profile: {fileID: 11400000, guid: a123fc0ac58cb774e8592c925f167e7c, type: 2}
   m_StaticLightingSkyUniqueID: 1
+<<<<<<< Updated upstream
   m_SkySettings: {fileID: 625577156}
+=======
+  m_SkySettings: {fileID: 469276316}
+>>>>>>> Stashed changes
   m_SkySettingsFromProfile: {fileID: -1658960478407648048, guid: a123fc0ac58cb774e8592c925f167e7c,
     type: 2}
 --- !u!4 &313761475
@@ -894,6 +898,110 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< Updated upstream
+=======
+--- !u!114 &469276316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59b6606ef2548734bb6d11b9d160bc7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  active: 1
+  m_AdvancedMode: 0
+  rotation:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
+    max: 360
+  skyIntensityMode:
+    m_OverrideState: 0
+    m_Value: 0
+  exposure:
+    m_OverrideState: 0
+    m_Value: 10
+  multiplier:
+    m_OverrideState: 0
+    m_Value: 1
+    min: 0
+  upperHemisphereLuxValue:
+    m_OverrideState: 0
+    m_Value: 1
+    min: 0
+  upperHemisphereLuxColor:
+    m_OverrideState: 0
+    m_Value: {x: 0, y: 0, z: 0}
+  desiredLuxValue:
+    m_OverrideState: 0
+    m_Value: 20000
+  updateMode:
+    m_OverrideState: 0
+    m_Value: 0
+  updatePeriod:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
+  includeSunInBaking:
+    m_OverrideState: 0
+    m_Value: 0
+  hdriSky:
+    m_OverrideState: 0
+    m_Value: {fileID: 8900000, guid: 1cde0e200e792cb4491204276a656490, type: 3}
+  enableBackplate:
+    m_OverrideState: 0
+    m_Value: 0
+  backplateType:
+    m_OverrideState: 0
+    m_Value: 0
+  groundLevel:
+    m_OverrideState: 0
+    m_Value: 0
+  scale:
+    m_OverrideState: 0
+    m_Value: {x: 32, y: 32}
+  projectionDistance:
+    m_OverrideState: 0
+    m_Value: 16
+    min: 0.0000001
+  plateRotation:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
+    max: 360
+  plateTexRotation:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
+    max: 360
+  plateTexOffset:
+    m_OverrideState: 0
+    m_Value: {x: 0, y: 0}
+  blendAmount:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
+    max: 100
+  shadowTint:
+    m_OverrideState: 0
+    m_Value: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    hdr: 0
+    showAlpha: 1
+    showEyeDropper: 1
+  pointLightShadow:
+    m_OverrideState: 0
+    m_Value: 0
+  dirLightShadow:
+    m_OverrideState: 0
+    m_Value: 0
+  rectLightShadow:
+    m_OverrideState: 0
+    m_Value: 0
+>>>>>>> Stashed changes
 --- !u!1 &540222054
 GameObject:
   m_ObjectHideFlags: 0
@@ -4783,6 +4891,7 @@ GameObject:
   - component: {fileID: 2520713946134183926}
   - component: {fileID: 2520713946134183927}
   - component: {fileID: 2520713946134183925}
+  - component: {fileID: 2520713946134183927}
   m_Layer: 0
   m_Name: Pistol
   m_TagString: Untagged
@@ -4854,6 +4963,8 @@ MonoBehaviour:
     type: 3}
   shotDelaySound: {fileID: 0}
   timeUntilDelaySoundPlayed: 0
+  shotVolume: 1
+  shotPitch: 1
   muzzleFlash: {fileID: 0}
   cannotBeShot:
     serializedVersion: 2
@@ -4874,9 +4985,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 2520713946134183924}
   m_Enabled: 1
   m_EditorHideFlags: 0
+<<<<<<< Updated upstream
   m_Script: {fileID: 11500000, guid: ed8e8096340999747979eda38b56c1e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+=======
+  m_Script: {fileID: 11500000, guid: 75915db14ad1ca0428a52b418615089d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mutedVolume: 0.5
+  mutedPitch: 2
+>>>>>>> Stashed changes
 --- !u!1 &2520713946134209266
 GameObject:
   m_ObjectHideFlags: 0
@@ -5976,6 +6095,12 @@ GameObject:
   - component: {fileID: 5006512736364213473}
   - component: {fileID: 8296172668175238899}
   - component: {fileID: 8296172668175238900}
+<<<<<<< Updated upstream
+=======
+  - component: {fileID: 8296172668175238901}
+  - component: {fileID: 8296172668175238902}
+  - component: {fileID: 8296172668175238903}
+>>>>>>> Stashed changes
   m_Layer: 0
   m_Name: Arms
   m_TagString: Untagged
@@ -6036,6 +6161,8 @@ MonoBehaviour:
   shotDelaySound: {fileID: 4217390790159904778, guid: d6e92bb40706328439d976c2d65f2b1b,
     type: 3}
   timeUntilDelaySoundPlayed: 0.5
+  shotVolume: 1
+  shotPitch: 1
   muzzleFlash: {fileID: 0}
   cannotBeShot:
     serializedVersion: 2
@@ -6066,6 +6193,50 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+<<<<<<< Updated upstream
+=======
+--- !u!114 &8296172668175238901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8296172668175238898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 971e7eccbd2578e4683e3be8fe5b9e6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosion: {fileID: 580673131265075230, guid: d67072114ae8b31448247b182bffb326,
+    type: 3}
+  explosionDecal: {fileID: 0}
+--- !u!114 &8296172668175238902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8296172668175238898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75915db14ad1ca0428a52b418615089d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mutedVolume: 0.5
+  mutedPitch: 0.1
+--- !u!114 &8296172668175238903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8296172668175238898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d709be53ba33b4d4cba722454a2db8ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+>>>>>>> Stashed changes
 --- !u!4 &8335808435761001190
 Transform:
   m_ObjectHideFlags: 0
