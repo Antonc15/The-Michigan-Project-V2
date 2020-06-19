@@ -17,14 +17,17 @@ public class RaycastAll : MonoBehaviour
             RaycastHit[] hits;
             hits = Physics.RaycastAll(transform.position, transform.forward, reach);
 
-            for (int i = 0; i < hits.Length && i < pierceAmount; i++)
+            for (int i = 0; i < hits.Length; i++)
             {
-                RaycastHit hit = hits[i];
-
-                if (hit.transform.GetComponent<Target>())
+                if (i < pierceAmount)
                 {
-                    Target target = hit.transform.GetComponent<Target>();
-                    target.TakeDamage(damage);
+                    RaycastHit hit = hits[i];
+
+                    if (hit.transform.GetComponent<Target>())
+                    {
+                        Target target = hit.transform.GetComponent<Target>();
+                        target.TakeDamage(damage);
+                    }
                 }
             }
 

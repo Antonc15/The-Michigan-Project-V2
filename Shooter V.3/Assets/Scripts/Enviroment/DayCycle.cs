@@ -7,16 +7,22 @@ using UnityEngine.Rendering.HighDefinition;
 
 public class DayCycle : MonoBehaviour
 {
+    [Header("Values")]
     [Range(0,24)]
     public float timeOfDay;
-
     public float minutesPerCycle = 60f;
 
+    [Header("Objects")]
     public AnimationCurve startsCurve;
-
     public Light sun;
     public Light moon;
     public Volume skyVolume;
+
+    [Header("Audio")]
+    public float maxVolume = 0.3f;
+    public float audioFadeSpeed;
+    public AudioSource nightAmbience;
+    public AudioSource dayAmbience;
 
     float OrbitSpeed;
     bool isNight;
@@ -39,6 +45,7 @@ public class DayCycle : MonoBehaviour
         }
 
         UpdateTime();
+        AmbientSounds();
     }
 
 
@@ -47,7 +54,7 @@ public class DayCycle : MonoBehaviour
         float alpha = timeOfDay / 24.0f;
         float sunRotation = Mathf.Lerp(-90, 270, alpha);
 
-        float moonRotation = sunRotation - 180;
+        float moonRotation = sunRotation - 180f;
 
         sun.transform.rotation = Quaternion.Euler(sunRotation, 45f, 90f);
         moon.transform.rotation = Quaternion.Euler(moonRotation, 45f, 90f);
@@ -78,6 +85,10 @@ public class DayCycle : MonoBehaviour
     void StartDay()
     {
         isNight = false;
+
+        dayAmbience.Play();
+        nightAmbience.Stop();
+
         sun.shadows = LightShadows.Soft;
         moon.shadows = LightShadows.None;
     }
@@ -85,7 +96,47 @@ public class DayCycle : MonoBehaviour
     void StartNight()
     {
         isNight = true;
+
+        dayAmbience.Stop();
+        nightAmbience.Play();
+
         sun.shadows = LightShadows.None;
         moon.shadows = LightShadows.Soft;
+    }
+
+    void AmbientSounds()
+    {
+        if (isNight)
+        {
+
+            //ENABLES ---> night ambient sound
+            //DISABLES ---> day ambient sound
+
+            if (nightAmbience.volume < maxVolume)
+            {
+                nightAmbience.volume += Time.deltaTime * (audioFadeSpeed / 100);
+            }
+
+            if (dayAmbience.volume > 0)
+            {
+                dayAmbience.volume -= Time.deltaTime * (audioFadeSpeed / 100);
+            }
+        }
+        else
+        {
+
+            //ENABLES ---> day ambient sound
+            //DISABLES ---> night ambient sound
+
+            if (dayAmbience.volume < maxVolume)
+            {
+                dayAmbience.volume += Time.deltaTime * (audioFadeSpeed / 100);
+            }
+
+            if (nightAmbience.volume > 0)
+            {
+                nightAmbience.volume -= Time.deltaTime * (audioFadeSpeed / 100);
+            }
+        }
     }
 }
