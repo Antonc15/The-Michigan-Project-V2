@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     public float groundDistance = 0.4f;
 
     [Header("Settings - Gravity")]
+    public float takeDamageVelocity = 12f;
     public float terminalVelocity = 20f;
     public float gravity = -9.81f;
     public float jumpHeight = 3f;
@@ -25,10 +26,15 @@ public class PlayerMovement : MonoBehaviour
     public float sprintSpeed = 5f;
     [HideInInspector]
     public bool isSprinting;
+    [HideInInspector]
+    public bool canAim;
 
     Vector3 velocity;
     float currentSpeed;
     float normalHeight = 2f;
+    bool takeDamageOnLand;
+    float takeDamage;
+    float timeInAir;
     [HideInInspector]
     public bool isGrounded;
 
@@ -42,6 +48,13 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        Movement();
+        FallDamage();
+    }
+
+    //********** This handles movement, falling *********\\
+    void Movement()
+    {
         if (isGrounded)
         {
             if (Input.GetButton("Sprint") && Input.GetButton("Horizontal") || Input.GetButton("Sprint") && Input.GetButton("Vertical"))
@@ -52,6 +65,7 @@ public class PlayerMovement : MonoBehaviour
                 charController.height = normalHeight;
 
                 isSprinting = true;
+                canAim = false;
             }
             else
             {
@@ -59,16 +73,17 @@ public class PlayerMovement : MonoBehaviour
                 currentSpeed = walkSpeed;
                 charController.height = normalHeight;
                 isSprinting = false;
+                canAim = true;
             }
         }
         else
         {
-            isSprinting = false;
+            canAim = true;
         }
 
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
-        if(isGrounded && velocity.y < 0)
+        if (isGrounded && velocity.y < 0)
         {
             velocity.y = -2f;
         }
@@ -80,7 +95,7 @@ public class PlayerMovement : MonoBehaviour
 
         controller.Move(move * currentSpeed * Time.deltaTime);
 
-        if(Input.GetButtonDown("Jump") && isGrounded)
+        if (Input.GetButtonDown("Jump") && isGrounded)
         {
             //this does the jumping
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
@@ -93,5 +108,36 @@ public class PlayerMovement : MonoBehaviour
         }
 
         controller.Move(velocity * Time.deltaTime);
+    }
+
+    //********** This handles fall damage *********\\
+    void FallDamage()
+    {
+        if (!isGrounded)
+        {
+            timeInAir += 1 * Time.deltaTime;
+            takeDamage = velocity.y * timeInAir * 2f;
+
+            if (velocity.y < takeDamageVelocity)
+            {
+                takeDamageOnLand = true;
+            }
+            else
+            {
+                takeDamageOnLand = false;
+            }
+        }
+        else
+        {
+            if(timeInAir != 0)
+                timeInAir = 0;
+
+            if (takeDamageOnLand)
+            {
+                takeDamageOnLand = false;
+
+                GetComponent<PlayerVitals>().TakeDamage(Mathf.RoundToInt(Mathf.Abs(takeDamage)));
+            }
+        }
     }
 }
