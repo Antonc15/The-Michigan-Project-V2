@@ -37,7 +37,9 @@ public class Reticle : MonoBehaviour
             }
         }
 
-        if(lookingAtItem)
+
+        //Hierarchical structure is intentional to prevent crosshair wackyness
+        if (lookingAtItem)
         {
             currentSize = Mathf.Lerp(currentSize, interactSize, Time.deltaTime * speed);
         }

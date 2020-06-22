@@ -62,6 +62,8 @@ public class DayCycleTest : MonoBehaviour
         float positionInSky;
         float moonX;
         float sunX;
+        float moonY;
+        float sunY;
 
         //****************************************************//
         //                                                    //
@@ -74,16 +76,20 @@ public class DayCycleTest : MonoBehaviour
             // THIS IS DAY!
 
             positionInSky = alpha * 2.0f - 1;
-            moonX = Mathf.Lerp(360, 180, positionInSky);
-            sunX = 160 * positionInSky * positionInSky - 160 * positionInSky + 180;
+            moonX = -80 * positionInSky * positionInSky + 80 * positionInSky + 186;
+            sunX = 160 * positionInSky * positionInSky - 160 * positionInSky + 186;
+            sunY = Mathf.Lerp(186, 0, positionInSky);
+            moonY = Mathf.Lerp(0, 186, positionInSky);
         }
         else
         {
             // THIS IS NIGHT!
 
             positionInSky = alpha * 2.0f;
-            moonX = 160 * positionInSky * positionInSky - 160 * positionInSky + 180;
-            sunX = Mathf.Lerp(360, 180, positionInSky);
+            moonX = 160 * positionInSky * positionInSky - 160 * positionInSky + 186;
+            sunX = -80 * positionInSky * positionInSky + 80 * positionInSky + 186;
+            moonY = Mathf.Lerp(186, 0, positionInSky);
+            sunY = Mathf.Lerp(0, 186, positionInSky);
         }
 
         //****************************************************//
@@ -92,13 +98,10 @@ public class DayCycleTest : MonoBehaviour
         //                      \/                            //
         //****************************************************//
 
-        float moonY = Mathf.Lerp(180, -180, alpha);
-        float sunY = moonY - 180;
-
         sun.transform.rotation = Quaternion.Euler(sunX, sunY, 90f);
         moon.transform.rotation = Quaternion.Euler(moonX, moonY, 90f);
 
-        sky.spaceRotation.value = new Vector3(0,alpha * 360,0);
+        sky.spaceRotation.value = new Vector3(0, alpha * 360, 0);
 
         //****************************************************//
         //                                                    //

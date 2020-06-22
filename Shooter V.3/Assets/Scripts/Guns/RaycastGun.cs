@@ -297,6 +297,8 @@ public class RaycastGun : MonoBehaviour
         //this checks whether the reloading is finished and reloads bullets accordingly
         if (isReloading == true)
         {
+            //***************- This disable the werid crosshair bug -***************\\
+            crosshair.GetComponent<Reticle>().aiming = false;
 
             if (reloadBulletsIndividual == false)
             {
@@ -617,7 +619,7 @@ public class RaycastGun : MonoBehaviour
         aimingFov.aimFovChange = aimFovChange;
         aimingFov.aimFovSpeed = aimFovSpeed;
 
-        if (Input.GetButton("Fire2"))
+        if (Input.GetButton("Fire2") && playerMove.isGrounded)
         {
             if (!aimingFov.isAiming)
                 aimingFov.isAiming = true;
@@ -630,7 +632,7 @@ public class RaycastGun : MonoBehaviour
 
             transform.localPosition = Vector3.Lerp(transform.localPosition,new Vector3(0,initialPosition.y,initialPosition.z), Time.deltaTime * smoothAmount);
 
-            if(crosshair != null)
+            if(crosshair != null && !crosshair.GetComponent<Reticle>().lookingAtItem)
             {
                 crosshair.GetComponent<Reticle>().aiming = true;
                 crosshair.GetComponent<Reticle>().waitTime = Time.time + 0.1f;

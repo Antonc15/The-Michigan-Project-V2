@@ -11,6 +11,7 @@ public class PlayerVitals : MonoBehaviour
     public float regenAfterDamageTime;
 
     [Header("Other Stuff")]
+    public Text healthText;
     public Image healthBar;
     public float maxHealth;
 
@@ -37,6 +38,11 @@ public class PlayerVitals : MonoBehaviour
         if (healthBar != null)
         {
             healthBar.fillAmount = health / maxHealth;
+        }
+
+        if (healthText != null)
+        {
+            healthText.text = Mathf.FloorToInt(health) + " / " + maxHealth;
         }
     }
 

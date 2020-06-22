@@ -31,7 +31,6 @@ public class PlayerMovement : MonoBehaviour
 
     Vector3 velocity;
     float currentSpeed;
-    float normalHeight = 2f;
     bool takeDamageOnLand;
     float takeDamage;
     float timeInAir;
@@ -43,7 +42,6 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         charController = gameObject.GetComponent<CharacterController>();
-        normalHeight = charController.height;
     }
 
     void Update()
@@ -62,7 +60,6 @@ public class PlayerMovement : MonoBehaviour
                 currentSpeed = sprintSpeed;
 
                 groundCheck.position = new Vector3(controller.transform.position.x, controller.transform.position.y - groundCheckerDistance, controller.transform.position.z);
-                charController.height = normalHeight;
 
                 isSprinting = true;
                 canAim = false;
@@ -71,14 +68,13 @@ public class PlayerMovement : MonoBehaviour
             {
                 groundCheck.position = new Vector3(controller.transform.position.x, controller.transform.position.y - groundCheckerDistance, controller.transform.position.z);
                 currentSpeed = walkSpeed;
-                charController.height = normalHeight;
                 isSprinting = false;
                 canAim = true;
             }
         }
         else
         {
-            canAim = true;
+            canAim = false;
         }
 
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
