@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -111,44 +112,18 @@ public class RaycastGun : MonoBehaviour
 
     void Start()
     {
-        initialPosition = transform.localPosition;
-        initialBloom = bloom;
-        playerInteract = GameObject.Find("Player").GetComponent<Interact>();
-        playerMove = GameObject.Find("Player").GetComponent<PlayerMovement>();
-        aimingFov = fpsCam.GetComponent<aimingFov>();
+        AssignStartVariables();
     }
 
     void OnDisable()
     {
+        //this prevents reloading from occuring when the gun isn't being held.
         isReloading = false;
     }
 
     void Update()
     {
-        if (!playerInteract.carrying)
-        {
-            ShootInput();
-
-            if (isAimable == true && playerMove.canAim && isReloading == false)
-            {
-                GunAim();
-            }
-            else if(isAiming)
-            {
-                isAiming = false;
-
-                if (aimingFov.isAiming)
-                    aimingFov.isAiming = false;
-            }
-        }
-        else
-        {
-            isAiming = false;
-
-            if (aimingFov.isAiming)
-                aimingFov.isAiming = false;
-        }
-
+        AimAndShootInput();
         UI();
         WeaponSway();
     }
@@ -158,113 +133,146 @@ public class RaycastGun : MonoBehaviour
         UpdateTracker();
     }
 
+    void AimAndShootInput()
+    {
+        //Checks that the player isnt holding anything
+        if (!playerInteract.carrying)
+        {
+            ShootInput();
+
+            //statement 1: if the gun is aimable, statement 2: if the playerMove script is allowing the gun to aim, statement 3: if the gun is not reloading.
+            if (isAimable && playerMove.canAim && !isReloading)
+            {
+                GunAim();
+            }
+            //if the player is not allowed to aim revert all aiming operations.
+            else
+            {
+                NotAiming();
+            }
+        }
+        //if the player is carrying something, revert all aiming operations.
+        else
+        {
+            NotAiming();
+        }
+    }
+
+    void NotAiming()
+    {
+        if(isAiming)
+            isAiming = false;
+
+        if (aimingFov.isAiming)
+            aimingFov.isAiming = false;
+    }
+
+    void AssignStartVariables()
+    {
+        //this is for weapon sway
+        initialPosition = transform.localPosition;
+
+        //this is for weapon bloom
+        initialBloom = bloom;
+
+        playerInteract = GameObject.Find("Player").GetComponent<Interact>();
+        playerMove = GameObject.Find("Player").GetComponent<PlayerMovement>();
+        aimingFov = fpsCam.GetComponent<aimingFov>();
+    }
+
     void ShootInput()
     {
-            //checks if the reload button is pressed and runs reload
-            if (Input.GetButtonDown("Reload") && ammo != maxAmmo && isReloading == false && isBursting == false && isDelaying == false)
+            if (Input.GetButtonDown("Reload"))
             {
                 Reload();
             }
 
-            //checks if the fire button is pressed and if their is ammo, if their is ammo shoots, otherwise reloads gun
-            if (isAutoFire == false)
+            if (!isAutoFire)
             {
-                if (Input.GetButtonDown("Fire1") && ammo > 0 && isReloading == false && isDelaying == false && isBursting == false)
+                if (Input.GetButtonDown("Fire1") && ammo > 0 && !isReloading && !isDelaying && !isBursting)
                 {
-                    //checks for burst fire, executes scripts accordingly
-                    if (isBurstFire == false)
+                    if (isBurstFire)
                     {
-                        Shoot();
-                        ShootDelay();
-                        if (usesAmmo)
-                            ammo--;
+                        BurstShot();
                     }
                     else
                     {
-                        BurstShoot();
-                        ShootDelay();
-                        if (oneBulletPerBurst == true && usesAmmo)
-                            ammo--;
+                        SingleShot();
                     }
                 }
-                else if (Input.GetButtonDown("Fire1") && ammo <= 0 && !isReloading && isDelaying == false)
+                else if (Input.GetButtonDown("Fire1") && ammo <= 0)
                 {
                     Reload();
                 }
-                else if (Input.GetButtonDown("Fire1") && isReloading && shootToInteruptReload == true && ammo > 0)
+                else if (Input.GetButtonDown("Fire1") && isReloading && shootToInteruptReload && ammo > 0)
                 {
                     isReloading = false;
 
-                    //checks for burst fire, executes scripts accordingly
-                    if (isBurstFire == false)
+                    if (isBurstFire)
                     {
-                        Shoot();
-                        ShootDelay();
-                        if (usesAmmo)
-                            ammo--;
+                        BurstShot();
                     }
                     else
                     {
-                        BurstShoot();
-                        ShootDelay();
-                        if (oneBulletPerBurst == true && usesAmmo)
-                            ammo--;
+                        SingleShot();
                     }
                 }
             }
-            //this is the auto fire mode, basically changes GetButtonDown to GetButton
             else
             {
-                if (Input.GetButton("Fire1") && ammo > 0 && isReloading == false && isDelaying == false && isBursting == false)
+                if (Input.GetButton("Fire1") && ammo > 0 && !isReloading && !isDelaying && !isBursting)
                 {
-                    //checks for burst fire, executes scripts accordingly
-                    if (isBurstFire == false)
+                    if (isBurstFire)
                     {
-                        Shoot();
-                        ShootDelay();
-                        if (usesAmmo)
-                            ammo--;
+                        BurstShot();
                     }
                     else
                     {
-                        BurstShoot();
-                        ShootDelay();
-                        if (oneBulletPerBurst == true && usesAmmo)
-                            ammo--;
+                        SingleShot();
                     }
                 }
-                else if (Input.GetButton("Fire1") && ammo <= 0 && isReloading == false && isDelaying == false)
+                else if (Input.GetButton("Fire1") && ammo <= 0 && !isReloading && !isDelaying)
                 {
                     Reload();
                 }
-                else if (Input.GetButton("Fire1") && isReloading && shootToInteruptReload == true && ammo > 0)
+                else if (Input.GetButton("Fire1") && isReloading && shootToInteruptReload && ammo > 0)
                 {
                     isReloading = false;
 
                     //checks for burst fire, executes scripts accordingly
-                    if (isBurstFire == false)
+                    if (isBurstFire)
                     {
-                        Shoot();
-                        ShootDelay();
-                        if (usesAmmo)
-                            ammo--;
+                        BurstShot();
                     }
                     else
                     {
-                        BurstShoot();
-                        ShootDelay();
-                        if (oneBulletPerBurst == true && usesAmmo)
-                            ammo--;
+                        SingleShot();
                     }
                 }
             }
+    }
+
+    void BurstShot()
+    {
+        BurstShoot();
+        ShootDelay();
+        if (oneBulletPerBurst && usesAmmo)
+            ammo--;
+    }
+
+    void SingleShot()
+    {
+        Shoot();
+        ShootDelay();
+        if (usesAmmo)
+            ammo--;
     }
 
 
     void UpdateTracker()
     {
         //this shoots the burst shot
-        if (isBursting == true)
+        if (isBursting)
         {
             if (currentBurstDelay <= Time.time && currentBurstAmount > 0)
             {
@@ -281,7 +289,7 @@ public class RaycastGun : MonoBehaviour
         }
 
         // Below checks for the delay between shots, handles rapid fire and non rapid fire
-        if (isDelaying == true)
+        if (isDelaying)
         {
             if (currentShotDelay <= Time.time)
             {
@@ -295,12 +303,12 @@ public class RaycastGun : MonoBehaviour
         }
 
         //this checks whether the reloading is finished and reloads bullets accordingly
-        if (isReloading == true)
+        if (isReloading)
         {
             //***************- This disable the werid crosshair bug -***************\\
             crosshair.GetComponent<Reticle>().aiming = false;
 
-            if (reloadBulletsIndividual == false)
+            if (!reloadBulletsIndividual)
             {
                 ammoUI.text = "...  / " + maxAmmo;
                 //formula below basically divides the time 3 seconds ago by ther current time and applies it to a image filler.
@@ -309,7 +317,7 @@ public class RaycastGun : MonoBehaviour
 
             if (reloadDuration <= Time.time)
             {
-                if (reloadBulletsIndividual == false)
+                if (!reloadBulletsIndividual)
                 {
                     ammo = maxAmmo;
                     isReloading = false;
@@ -330,7 +338,7 @@ public class RaycastGun : MonoBehaviour
                 }
             }
 
-            if (reloadBulletsIndividual == true && ammo == maxAmmo)
+            if (reloadBulletsIndividual && ammo == maxAmmo)
             {
                 isReloading = false;
 
@@ -347,8 +355,8 @@ public class RaycastGun : MonoBehaviour
         {
             //this handles bloom
             Vector3 t_bloom = fpsCam.transform.position + fpsCam.transform.forward * 1000f;
-            t_bloom += Random.Range(-bloom, bloom) * fpsCam.transform.up;
-            t_bloom += Random.Range(-bloom, bloom) * fpsCam.transform.right;
+            t_bloom += UnityEngine.Random.Range(-bloom, bloom) * fpsCam.transform.up;
+            t_bloom += UnityEngine.Random.Range(-bloom, bloom) * fpsCam.transform.right;
             t_bloom -= fpsCam.transform.position;
             t_bloom.Normalize();
 
@@ -367,15 +375,15 @@ public class RaycastGun : MonoBehaviour
                 if (target != null && explosion == null)
                 {
                     float damage;
-                    //yet another example of random.range not selecting the max number, 101 will never be a selection
-                    if (Random.Range(0, 101) <= criticalStrikeChance)
+
+                    if (UnityEngine.Random.Range(0, 100) <= criticalStrikeChance)
                     {
                         damage = maxDamage * 2;
                     }
                     else
                     {
                         //I'm doing + 1 after maxDamage because Random.Range's never grab the max value.
-                        damage = Random.Range(minDamage, maxDamage + 1);
+                        damage = UnityEngine.Random.Range(minDamage, maxDamage + 1);
                     }
 
                         target.TakeDamage(Mathf.RoundToInt(damage));
@@ -396,14 +404,14 @@ public class RaycastGun : MonoBehaviour
                     {
                         float damage;
                         //yet another example of random.range not selecting the max number, 101 will never be a selection
-                        if (Random.Range(0, 101) <= criticalStrikeChance)
+                        if (UnityEngine.Random.Range(0, 101) <= criticalStrikeChance)
                         {
                             damage = maxDamage * 2;
                         }
                         else
                         {
                             //I'm doing + 1 after maxDamage because Random.Range's never grab the max value.
-                            damage = Random.Range(minDamage, maxDamage + 1);
+                            damage = UnityEngine.Random.Range(minDamage, maxDamage + 1);
                         }
 
                         var explosionDamage = Instantiate(explosion, hit.point, Quaternion.identity);
@@ -424,7 +432,7 @@ public class RaycastGun : MonoBehaviour
                         GameObject t_IncendiaryBulletHole = incendiaryBulletHole;
 
 
-                        //------------------------ Creates normal bullet hole if thewir is no decal in the incendiary slot. ----------------------\\
+                        //------------------------ Creates normal bullet hole if their is no decal in the incendiary slot. ----------------------\\
                         if (incendiaryBulletHole != null & explosion != null)
                         {
                             //creating the bullet things
@@ -522,7 +530,7 @@ public class RaycastGun : MonoBehaviour
             muzzleFlash.Play();
         }
 
-        if (shotDelaySound != null & playedDelaySound == false)
+        if (shotDelaySound != null & !playedDelaySound)
         {
             StartCoroutine("PlaySoundDuringDelay");
             playedDelaySound = true;
@@ -555,13 +563,17 @@ public class RaycastGun : MonoBehaviour
 
     void Reload()
     {
-        isReloading = true;
-        reloadDuration = Time.time + reloadTime;
-        //if reloadBulletsIndividual == true than the sound will be played at the end of the reload
-        if(reloadBulletsIndividual == false)
+        if (ammo != maxAmmo && !isReloading && !isBursting && !isDelaying)
         {
-            var audio = Instantiate(reloadSound, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
-            audio.transform.parent = GameObject.Find("AudioHolder").transform;
+            isReloading = true;
+            reloadDuration = Time.time + reloadTime;
+
+            //if reloadBulletsIndividual == true than the sound will be played at the end of the reload
+            if (!reloadBulletsIndividual)
+            {
+                var audio = Instantiate(reloadSound, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
+                audio.transform.parent = GameObject.Find("AudioHolder").transform;
+            }
         }
     }
 
@@ -574,12 +586,12 @@ public class RaycastGun : MonoBehaviour
         ammoFloat = ammo;
         maxAmmoFloat = maxAmmo;
 
-        if(isReloading == false && reloadBulletsIndividual == false)
+        if(!isReloading && !reloadBulletsIndividual)
         {
             gunIcon.fillAmount = ammoFloat / maxAmmoFloat;
             ammoUI.text = ammo + " / " + maxAmmo;
         }
-        else if(reloadBulletsIndividual == true)
+        else if(reloadBulletsIndividual)
         {
             gunIcon.fillAmount = ammoFloat / maxAmmoFloat;
             ammoUI.text = ammo + " / " + maxAmmo;
@@ -594,16 +606,16 @@ public class RaycastGun : MonoBehaviour
 
     void WeaponSway()
     {
-            float movementX = -Input.GetAxis("Mouse X") * swayAmount;
-            float movementY = -Input.GetAxis("Mouse Y") * swayAmount;
+        float movementX = -Input.GetAxis("Mouse X") * swayAmount;
+        float movementY = -Input.GetAxis("Mouse Y") * swayAmount;
 
-            movementX = Mathf.Clamp(movementX, -maxSwayAmount, maxSwayAmount);
-            movementY = Mathf.Clamp(movementY, -maxSwayAmount, maxSwayAmount);
+        movementX = Mathf.Clamp(movementX, -maxSwayAmount, maxSwayAmount);
+        movementY = Mathf.Clamp(movementY, -maxSwayAmount, maxSwayAmount);
 
 
-            Vector3 finalPosition = new Vector3(movementX, movementY, 0);
+        Vector3 finalPosition = new Vector3(movementX, movementY, 0);
             
-        if(isAiming == true)
+        if(isAiming)
         {
             transform.localPosition = Vector3.Lerp(transform.localPosition, finalPosition + new Vector3(0, initialPosition.y, initialPosition.z), Time.deltaTime * smoothAmount);
         }

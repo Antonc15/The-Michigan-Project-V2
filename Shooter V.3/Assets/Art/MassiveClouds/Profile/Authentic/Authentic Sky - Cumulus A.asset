@@ -3,8 +3,9 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -27,26 +28,27 @@ MonoBehaviour:
     Softness: 0.69
     Density: 0.224
     Dissolve: 0
+    FarDissolve: 1
     Transparency: 0
     Scale: 2.77
-    ScrollVelocity: {x: 500, y: 0, z: 500}
+    ScrollVelocity: {x: 200, y: 0, z: 200}
     Lighting: 0.736
     DirectLight: 0.363
     Ambient: 1
     LightingQuality: 0.115
     LightSmoothness: 0
     LightScattering: 0.606
-    Shading: 0.399
+    Shading: 0.525
     EdgeLighting: 1
     GlobalLighting: 0.1
     GlobalLightingRange: 0
     Shadow: 1
-    ShadowSoftness: 0.016
+    ShadowSoftness: 0.008
     ShadowQuality: 0
     ShadowStrength: 0.721
     ShadowThreshold: 0
     VolumetricShadow: 0
-    VolumetricShadowDensity: 0.139
+    VolumetricShadowDensity: 0.044
     VolumetricShadowStrength: 1
     Brightness: 0
     Contrast: 0
@@ -55,15 +57,17 @@ MonoBehaviour:
     HorizontalSoftnessTop: 0.838
     HorizontalSoftnessBottom: 0.064
     HorizontalSoftnessFigure: 0.394
-    FromHeight: 1357
-    ToHeight: 2943
+    FromHeight: 1338.378
+    ToHeight: 2924.3784
     Thickness: 1048
     FromDistance: 0
     MaxDistance: 48125
     Iteration: 129
     Fade: 0.83
-    Optimize: 0.551
+    Optimize: 0.523
     HeightFog: 1
     GroundHeight: -262
     HeightFogFromDistance: 4623
     HeightFogRange: 1428
+    FarHeightFogRange: 0
+    HeightFogDensity: 0
