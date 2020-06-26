@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: bed1eabd545e89042a0044729d7713c4
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Colus
+  fontNames:
+  - Colus
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 803df2b4dd8bd0544ae618cac9c202b5, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -375,18 +375,23 @@ public class RaycastGun : MonoBehaviour
                 if (target != null && explosion == null)
                 {
                     float damage;
+                    bool isCritical;
 
                     if (UnityEngine.Random.Range(0, 100) <= criticalStrikeChance)
                     {
                         damage = maxDamage * 2;
+                        isCritical = true;
                     }
                     else
                     {
                         //I'm doing + 1 after maxDamage because Random.Range's never grab the max value.
                         damage = UnityEngine.Random.Range(minDamage, maxDamage + 1);
+                        isCritical = false;
                     }
 
-                        target.TakeDamage(Mathf.RoundToInt(damage));
+                     target.HitPosition(hit.point);
+                     target.AssignColor(minDamage, maxDamage, isCritical);
+                     target.TakeDamage(Mathf.RoundToInt(damage));
                 }
                 else
                 {
@@ -403,18 +408,22 @@ public class RaycastGun : MonoBehaviour
                     if (explosion != null)
                     {
                         float damage;
-                        //yet another example of random.range not selecting the max number, 101 will never be a selection
-                        if (UnityEngine.Random.Range(0, 101) <= criticalStrikeChance)
+                        bool isCritical;
+
+                        if (UnityEngine.Random.Range(0, 100) <= criticalStrikeChance)
                         {
                             damage = maxDamage * 2;
+                            isCritical = true;
                         }
                         else
                         {
                             //I'm doing + 1 after maxDamage because Random.Range's never grab the max value.
                             damage = UnityEngine.Random.Range(minDamage, maxDamage + 1);
+                            isCritical = false;
                         }
 
                         var explosionDamage = Instantiate(explosion, hit.point, Quaternion.identity);
+                        explosionDamage.GetComponent<Explosion>().AssignValues(minDamage, maxDamage, isCritical);
                         explosionDamage.GetComponent<Explosion>().damage = Mathf.RoundToInt(damage);
                     }
 
